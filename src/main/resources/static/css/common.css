@@ -1,0 +1,11 @@
+html, body {margin: 0px; padding: 0px;}
+#headerDiv{
+    width: 100%;
+    height: 250px;
+    background-color: red;
+}
+#blue{
+    width: 450px;
+    height: 250px;
+    background-color: blue;
+}
