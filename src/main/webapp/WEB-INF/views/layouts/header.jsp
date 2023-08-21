@@ -2,6 +2,21 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="headerDiv">헤더입니다.</div>
+<div id="headerDiv">
+    <nav>
+        <ul>
+            <li><a href="#">about</a></li>
+        </ul>
+    </nav>
+</div>
+<div id="menuDiv">
+    <nav>
+        <ul>
+            <li><a href="#">게시판</a></li>
+            <li><a href="#">공지사항</a></li>
+            <li><a href="#">설문조사</a></li>
+        </ul>
+    </nav>
+</div>
 
 
