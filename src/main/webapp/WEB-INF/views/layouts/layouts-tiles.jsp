@@ -4,12 +4,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <c:set var="ctx" value="${pageContext.request.contextPath}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link href="<c:url value="/css/common.css" />" rel="stylesheet" type="text/css" />
+    <script src="<c:url value="/js/common/common.js" />"></script>
 </head>
 <body>
 <div id="wrap" class="admin">
+    <input type="hidden" id="ctx" value="${ctx}">
     <div class="admin_dashboard">
         <aside>
             <header class="header">

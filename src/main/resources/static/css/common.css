@@ -1,29 +1,38 @@
 html, body, ul, li{margin: 0px; padding: 0px;}
-#headerDiv{
+
+/*메인이미지*/
+#main_img{
+    width: 100px;
+    height: 70px;
+}
+
+
+/*헤더*/
+#header_div{
     width: 100%;
     height: 100px;
     background-color: #282828;
 }
 
-#headerDiv nav ul{
+#header_div nav ul{
 }
 
-#headerDiv nav ul li{
+#header_div nav ul li{
 }
 
 
-#headerDiv nav ul li a{
+#header_div nav ul li a{
     text-decoration: none;
     font-size: 30px;
     color: white;
     font-weight: bold;
 }
 
-
-#menuDiv nav ul{
+/*메뉴*/
+#menu_div nav ul{
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row; /*수평 정렬*/
+    flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
@@ -32,19 +41,42 @@ html, body, ul, li{margin: 0px; padding: 0px;}
     list-style-type: none;
 }
 
-#menuDiv nav ul li{
+#menu_div nav ul li{
 }
 
 
-#menuDiv nav ul li a{
+#menu_div nav ul li a{
     text-decoration: none;
     font-size: 15px;
     color: white;
 
 }
 
+
+/*공통 메인 박스*/
 #main_container{
     width: 100%;
     height: 100%;
     background-color: lightgray;
+}
+
+
+
+/*공통 버튼*/
+.btn{
+    border: none;
+    border-radius: 5px;
+    background-color: black;
+    padding: 5px 15px;
+    color: white;
+    font-size: 15px;
+}
+
+.btn:hover{
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px 15px;
+    color: black;
+    font-size: 15px;
 }

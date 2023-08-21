@@ -15,8 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class BoardController {
 
     @GetMapping(value = "")
-    public ModelAndView MainPage(){
-        return new ModelAndView("/board.bd");
+    public ModelAndView BoardMainPage(){
+        return new ModelAndView("/board/board.bd");
+    }
+
+    @GetMapping(value="/add")
+    public ModelAndView BoardAddPage() {
+        return new ModelAndView("/board/board_detail.bd")
+                .addObject("PAGE_TYPE", "INSERT");
     }
 
 }

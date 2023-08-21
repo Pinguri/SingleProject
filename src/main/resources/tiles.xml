@@ -29,6 +29,30 @@
     </definition>
 
 
+    <definition name="board" template="/WEB-INF/views/layouts/layouts-tiles.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/layouts/header.jsp" />
+        <put-attribute name="content" value="" />
+    </definition>
+
+    <definition name="/*/*/*/*/*.bd" extends="board">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}/{4}/{5}.jsp" />
+    </definition>
+    <definition name="/*/*/*/*.bd" extends="board">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp" />
+    </definition>
+    <definition name="/*/*/*.bd" extends="board">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>
+    <definition name="/*/*.bd" extends="board">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+    </definition>
+    <definition name="/*.bd" extends="board">
+        <put-attribute name="content" value="/WEB-INF/views/{1}.jsp" />
+    </definition>
+    <definition name="*.bd" extends="board">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/.jsp" />
+    </definition>
+
 
 
 </tiles-definitions>
