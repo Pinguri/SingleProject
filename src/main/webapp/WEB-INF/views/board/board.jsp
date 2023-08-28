@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="main_container">
-    <div id="board_list_div">
+    <div id="board_container">
         <button id="add_board_btn" class="btn">글쓰기</button>
     </div>
 </div>
