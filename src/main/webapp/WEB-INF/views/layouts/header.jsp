@@ -13,7 +13,7 @@
 <div id="menu_div">
     <nav>
         <ul>
-            <li><a href="${ctx}/board">게시판</a></li>
+            <li><a href="${ctx}/manager/board">게시판</a></li>
             <li><a href="#">공지사항</a></li>
             <li><a href="#">설문조사</a></li>
         </ul>
