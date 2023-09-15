@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Map;
 
 @Repository
-public class BoardDAO extends EgovAbstractServiceImpl {
+public class BoardDAO extends EgovAbstractMapper {
 
     private static final String NAME_SPACE = "BOARD.";
 
