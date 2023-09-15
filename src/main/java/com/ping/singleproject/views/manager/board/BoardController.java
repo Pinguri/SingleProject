@@ -1,4 +1,4 @@
-package com.ping.singleproject.views.board;
+package com.ping.singleproject.views.manager.board;
 
 
 import com.ping.singleproject.common.validation.CommonValidation;
@@ -8,12 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/board")
+@RequestMapping(value = "/manager/board")
 @Slf4j
 @RequiredArgsConstructor
 public class BoardController {
@@ -24,12 +23,12 @@ public class BoardController {
 
     @GetMapping(value = "")
     public ModelAndView BoardMainPage(){
-        return new ModelAndView("/board/board.bd");
+        return new ModelAndView("/manager/board/board.bd");
     }
 
     @GetMapping(value="/add")
     public ModelAndView BoardAddPage() {
-        return new ModelAndView("/board/board_detail.bd")
+        return new ModelAndView("/manager/board/board_detail.bd")
                 .addObject("PAGE_TYPE", "INSERT");
     }
 

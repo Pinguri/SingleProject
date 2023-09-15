@@ -81,51 +81,12 @@
             <version>2.7.10</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
-
-
-        <!-- egov -->
-        <dependency>
-            <groupId>org.egovframe.rte</groupId>
-            <artifactId>org.egovframe.rte.psl.dataaccess</artifactId>
-            <version>${egov.maven.artifact.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.logging.log4j</groupId>
-                    <artifactId>log4j-slf4j-impl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax</groupId>
-                    <artifactId>javaee-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.egovframe.rte</groupId>
-            <artifactId>org.egovframe.rte.ptl.mvc</artifactId>
-            <version>${egov.maven.artifact.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.egovframe.rte</groupId>
-            <artifactId>org.egovframe.rte.fdl.crypto</artifactId>
-            <version>${egov.maven.artifact.version}</version>
-        </dependency>
 
         <!-- JSTL -->
         <dependency>
@@ -154,6 +115,17 @@
             <artifactId>tiles-servlet</artifactId>
             <version>${apache.tiles.version}</version>
         </dependency>
+
+        <!-- jsp Servlet -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
 
     </dependencies>
 

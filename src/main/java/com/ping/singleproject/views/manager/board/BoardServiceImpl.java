@@ -1,8 +1,7 @@
-package com.ping.singleproject.views.board;
+package com.ping.singleproject.views.manager.board;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardService {
+public class BoardServiceImpl implements BoardService {
 
     private final BoardDAO boardDAO;
 

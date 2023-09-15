@@ -22,4 +22,4 @@
         </table>
     </div>
 </div>
-<script type="application/javascript" src="<c:url value="/js/views/board/board_detail.js"/> "></script>
+<script type="application/javascript" src="<c:url value="/js/views/manager/board/board_detail.js"/> "></script>

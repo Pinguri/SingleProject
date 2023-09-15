@@ -1,6 +1,6 @@
 const BoardController = (function () {
 
-    const BASE_URL = getContextPath() + "/board";
+    const BASE_URL = getContextPath() + "/manager/board";
 
 
     const Elements = (function () {

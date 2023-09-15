@@ -15,27 +15,18 @@ const BoardController = (function () {
     })();
 
 
-    function addBoardFunction(){
+    function insertBoardFunction(){
         let dataObject = {};
         dataObject.boardTitle = Elements.boardTitle.value;
         dataObject.boardContent = Elements.boardContent.value;
 
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', BASE_URL + '/add', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send("id=post_ajax");
-        xhr.onload = function () {
-            if (xhr.status == 200) {
-                alert("gd");
-            } else {
-            }
-        }
+        commonAjax(BASE_URL + "/info", "PUT", dataObject, true, function (){}, true);
 
     }
 
 
     function setEventListener() {
-        Elements.saveBtn.addEventListener("click", addBoardFunction);
+        Elements.saveBtn.addEventListener("click", insertBoardFunction);
     }
 
     function init() {

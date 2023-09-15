@@ -1,4 +1,4 @@
-package com.ping.singleproject.views.board;
+package com.ping.singleproject.views.manager.board;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
