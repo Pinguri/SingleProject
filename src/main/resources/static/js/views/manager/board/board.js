@@ -5,9 +5,11 @@ const BoardController = (function () {
 
     const Elements = (function () {
         const addBoardBtn = document.getElementById("add_board_btn");
+        const boardTbody = document.getElementById("board_tbody");
 
         return {
-            addBoardBtn
+            addBoardBtn,
+            boardTbody
         }
     })();
 
@@ -17,12 +19,32 @@ const BoardController = (function () {
     }
 
 
+    function createBoardList(response) {
+        let targetHtml = Elements.boardTbody;
+        let htmlBody = [];
+
+        response.board_list.forEach(function (e) {
+            htmlBody.push("<tr>");
+            htmlBody.push("<td>" + replaceNull(e.BOARD_KEY) + "</td>");
+            htmlBody.push("<td>" + replaceNull(e.TITLE) + "</td>");
+            htmlBody.push("<td>" + replaceNull(e.CREATE_DATE) + "</td>");
+            htmlBody.push("</tr>");
+        });
+        targetHtml.innerHTML = htmlBody.join('');
+
+    }
+
+    function boardSearch(){
+        commonAjax(BASE_URL + "/search", "GET", null, true, createBoardList, true);
+    }
+
     function setEventListener() {
         Elements.addBoardBtn.addEventListener("click", goAddBoard);
     }
 
     function init() {
         setEventListener();
+        boardSearch();
     }
 
     return {

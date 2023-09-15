@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ping.singleproject.views.manager.board.BoardDAO">
+<mapper namespace="BOARD">
 
-    <insert id="INSERT_BOARD" >
+    <resultMap type="map" id="board_map">
+        <result property="CONTENT" column="CONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
+    </resultMap>
+
+    <insert id="INSERT_BOARD_INFO" parameterType="map">
+        /* 게시판 글 등록 */
         INSERT INTO BOARD (BOARD_KEY, TITLE, CONTENT, CREATE_DATE)
         VALUES (BOARD_KEY_SEQ.NEXTVAL, #{title}, #{content}, SYSDATE)
     </insert>
+
+    <select id="GET_BOARD_LIST" resultMap="board_map">
+        SELECT * FROM BOARD ORDER BY BOARD_KEY DESC
+    </select>
+
+
+
 </mapper>

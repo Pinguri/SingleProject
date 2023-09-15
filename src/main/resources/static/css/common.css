@@ -80,3 +80,20 @@ html, body, ul, li{margin: 0px; padding: 0px;}
     color: black;
     font-size: 15px;
 }
+
+.item_container{
+    display: flex;
+    justify-content: center;
+}
+
+.item_tbl{
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+
+.item_tbl th,td{
+    border: 1px solid black;
+    text-align: center;
+}

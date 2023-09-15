@@ -5,25 +5,33 @@ const BoardController = (function () {
     
     const Elements = (function () {
         const saveBtn = document.getElementById("save_btn");
-        const boardTitle = document.getElementById("board_title");
-        const boardContent = document.getElementById("board_content");
+        const title = document.getElementById("title");
+        const content = document.getElementById("content");
         return {
             saveBtn,
-            boardTitle,
-            boardContent
+            title,
+            content
         }
     })();
 
 
     function insertBoardFunction(){
         let dataObject = {};
-        dataObject.boardTitle = Elements.boardTitle.value;
-        dataObject.boardContent = Elements.boardContent.value;
+        dataObject.title = Elements.title.value;
+        dataObject.content = Elements.content.value;
 
-        commonAjax(BASE_URL + "/info", "PUT", dataObject, true, function (){}, true);
+        commonAjax(BASE_URL + "/info", "PUT", dataObject, true, insertBoardAfter, true);
 
     }
 
+    function insertBoardAfter(response){
+        if (response.result === "error") {
+            alert(response.msg);
+            return false;
+        } else {
+            window.location.href = BASE_URL;
+        }
+    }
 
     function setEventListener() {
         Elements.saveBtn.addEventListener("click", insertBoardFunction);

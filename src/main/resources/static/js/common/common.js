@@ -112,3 +112,18 @@ function ajaxLoadingImage(isShow) {
         document.getElementById("loadingWrap").classList.add("hidden");
     }
 }
+
+
+function replaceNull(value) {
+    try {
+        if(value !== undefined && isNaN(value)) value = value.trim();
+    } catch (e) {
+        return isNull(value);
+    }
+    return isNull(value) ? "" : htmlDecode(value);
+}
+
+function htmlDecode(value) {
+    let doc = new DOMParser().parseFromString(value, "text/html");
+    return doc.documentElement.textContent;
+}
