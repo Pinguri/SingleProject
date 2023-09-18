@@ -4,15 +4,15 @@ const SurveyController = (function () {
 
 
     const Elements = (function () {
-
+        const addSurveyBtn = document.getElementById("add_survey_btn");
 
         return {
-
+            addSurveyBtn
         }
     })();
 
 
-    function goAddBoard() {
+    function goAddSurvey() {
         window.location.href = BASE_URL + "/add";
     }
 
@@ -21,7 +21,7 @@ const SurveyController = (function () {
 
 
     function setEventListener() {
-
+        Elements.addSurveyBtn.addEventListener("click", goAddSurvey);
     }
 
     function init() {

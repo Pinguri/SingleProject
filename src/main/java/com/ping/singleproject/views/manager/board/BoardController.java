@@ -28,7 +28,7 @@ public class BoardController {
 
     @GetMapping(value="/add")
     public ModelAndView BoardAddPage() {
-        return new ModelAndView("/manager/board/board_detail.bd")
+        return new ModelAndView("/manager/board/board-detail.bd")
                 .addObject("PAGE_TYPE", "INSERT");
     }
 

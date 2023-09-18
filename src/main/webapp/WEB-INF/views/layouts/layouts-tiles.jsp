@@ -11,8 +11,11 @@
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <link href="<c:url value="/css/common.css" />" rel="stylesheet" type="text/css" />
+    <link href="<c:url value="/css/datepicker/datepicker.min.css" />" rel="stylesheet" type="text/css" />
     <link href="<c:url value="/images/favicon.ico" />" rel="shortcut icon" />
     <script src="<c:url value="/js/common/common.js" />"></script>
+    <script src="<c:url value="/js/common/commonDatepicker.js" />"></script>
+    <script src="<c:url value="/js/datepicker/datepicker.min.js" />"></script>
 </head>
 <body>
 <div id="wrap" class="admin">
@@ -24,10 +27,8 @@
             </header>
         </aside>
 
-        <section class="admin_container" id="container">
-            <div class="container">
+        <section class="admin_container">
             <tiles:insertAttribute name="content"/>
-            </div>
         </section>
 
     </div>
