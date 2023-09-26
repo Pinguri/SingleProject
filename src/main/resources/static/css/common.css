@@ -1,4 +1,8 @@
-html, body, ul, li,h1,button,table{margin: 0px; padding: 0px;}
+html, ul, li,h1,button,table{margin: 0px; padding: 0px;}
+body {
+    margin: 0px 0px 100px 0px;
+    padding: 0px;
+}
 input {border:none;}
 input:focus{
     outline:none;
@@ -137,6 +141,12 @@ input:focus{
     padding: 0.5em 1em;
     color: black;
     font-size: 1em;
+}
+
+
+/*설문항목 버튼*/
+.survey_item_btn{
+
 }
 
 /*공통 메인 박스*/
