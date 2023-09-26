@@ -28,12 +28,11 @@
     <h1 class="main_title">설문항목</h1>
 
     <div class="btn_area_center">
-        <button id="add_survey_btn" class="btn">설문 추가</button>
+        <button id="add_survey_btn" class="btn">설문 항목 추가</button>
     </div>
 
 
-
-    <table class="main_tbl" name="survey_info_tbl">
+    <table class="main_tbl" name="survey_info_tbl" id="survey_info_tbl_1">
         <colgroup>
             <col width="15%">
             <col width="25%">
@@ -66,15 +65,14 @@
                 <td><input type="text" class="input99" id="ans4"/></td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align:right;">
-                    <button id="item_remove_btn" class="survey_item_btn">삭제</button>
-                    <button id="item_up_btn" class="survey_item_btn">위로</button>
-                    <button id="item_down_btn" class="survey_item_btn">아래로</button>
+                <td colspan="3" style="text-align: right;">
+                    <input type="button" name="survey_item_remove_btn" class="survey_item_btn" value="삭제"/>
+                    <input type="button" name="survey_item_up_btn" class="survey_item_btn" value="위로"/>
+                    <input type="button" name="survey_item_down_btn" class="survey_item_btn" value="아래로"/>
                 </td>
             </tr>
         </tbody>
     </table>
-
 
 
 </div>

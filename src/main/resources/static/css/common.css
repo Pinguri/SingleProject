@@ -141,13 +141,30 @@ input:focus{
     padding: 0.5em 1em;
     color: black;
     font-size: 1em;
+    background-color: lightgray;
 }
 
 
 /*설문항목 버튼*/
 .survey_item_btn{
-
+    margin: 0px 0.5em;
+    background-color: lightgray;
+    border: none;
+    text-decoration: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-family: "paybooc-Light", sans-serif;
 }
+.survey_item_btn:hover{
+    color: white;
+    background-color: black;
+    border: none;
+    text-decoration: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-family: "paybooc-Light", sans-serif;
+}
+
 
 /*공통 메인 박스*/
 #main_container{
