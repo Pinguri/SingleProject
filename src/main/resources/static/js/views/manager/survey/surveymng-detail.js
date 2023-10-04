@@ -4,13 +4,22 @@ const SurveyDetailController = (function () {
 
 
     const Elements = (function () {
-        const addSurveyBtn = document.getElementById("add_survey_btn");
-        const surveyInfoTbl = document.getElementById("survey_info_tbl");
         const lastHtml = ""
+        const addSurveyBtn = document.getElementById("add_survey_btn");
+        const surveyInfoTbl = document.getElementById("survey_info_tbl")
+        const removeInfoList = [];
+        const saveBtn = document.getElementById("save_btn");
+        const moveBackBtn = document.getElementById("move_back_btn");
+        const surveyGroupSubjectTbl = document.getElementById("survey_group_subject_tbl");
+
         return {
+            lastHtml,
             addSurveyBtn,
             surveyInfoTbl,
-            lastHtml
+            removeInfoList,
+            saveBtn,
+            moveBackBtn,
+            surveyGroupSubjectTbl
         }
     })();
 
@@ -36,30 +45,16 @@ const SurveyDetailController = (function () {
         appendHtml.push("</colgroup");
         appendHtml.push("<tbody>");
         appendHtml.push("<tr>");
-        appendHtml.push("<th rowspan='7'>설문항목 - " + index  + "</th>");
-        appendHtml.push("<th><label for='sub'>질문</label></th>");
-        appendHtml.push("<td><input type='text' class='input99' id='sub'/></td>");
+        appendHtml.push("<th rowspan='8'>설문항목</th>");
+        appendHtml.push("<th><label for='qs_subject_"+index+"'>질문</label></th>");
+        appendHtml.push("<td><input type='text' class='input99' id='qs_subject_"+index+"'/></td>");
         appendHtml.push("</tr>");
-        appendHtml.push("<tr>");
-        appendHtml.push("<th><label for='ans0'>답변1</label></th>");
-        appendHtml.push("<td><input type='text' class='input99' id='ans1'/></td>");
-        appendHtml.push("</tr>");
-        appendHtml.push("<tr>");
-        appendHtml.push("<th><label for='ans1'>답변2</label></th>");
-        appendHtml.push("<td><input type='text' class='input99' id='ans1'/></td>");
-        appendHtml.push("</tr>");
-        appendHtml.push("<tr>");
-        appendHtml.push("<th><label for='ans0'>답변3</label></th>");
-        appendHtml.push("<td><input type='text' class='input99' id='ans1'/></td>");
-        appendHtml.push("</tr>");
-        appendHtml.push("<tr>");
-        appendHtml.push("<th><label for='ans0'>답변4</label></th>");
-        appendHtml.push("<td><input type='text' class='input99' id='ans1'/></td>");
-        appendHtml.push("</tr>");
-        appendHtml.push("<tr>");
-        appendHtml.push("<th><label for='ans0'>답변5</label></th>");
-        appendHtml.push("<td><input type='text' class='input99' id='ans1'/></td>");
-        appendHtml.push("</tr>");
+        for(let i =0; i<6; i++){
+            appendHtml.push("<tr>");
+            appendHtml.push("<th><label for='qs_ans_"+index+"_"+i+"'>답변"+Number(i+1)+"</label></th>");
+            appendHtml.push("<td><input type='text' class='input99' id='qs_ans_"+index+"_"+i+"'/></td>");
+            appendHtml.push("</tr>");
+        }
         appendHtml.push("<tr>");
         appendHtml.push("<td colspan='3' style='text-align: right;'>");
         appendHtml.push("<input type='button' name='survey_item_remove_btn' class='survey_item_btn' value='삭제'/>");
@@ -78,38 +73,70 @@ const SurveyDetailController = (function () {
     }
 
     // 설문 항목 순서 변경
-    function changeSurveyItemTarget(el,changeEl){
+    function changeSurveyItemTarget(targetEl,changeEl){
 
-        let elParentNode = el.parentNode;
+        let targetElParentNode = targetEl.parentNode;
         let changeElParentNode = changeEl.parentNode;
 
-        console.log(changeEl);
-
-        let cloneEl = el.cloneNode(true);
-        let cloneChangeEl = changeEl.cloneNode(true);
+        let targetClone = targetEl.cloneNode(true);
+        let changeClone = changeEl.cloneNode(true);
 
 
-        el.remove();
+        targetEl.remove();
         changeEl.remove();
 
-        elParentNode.appendChild(cloneEl);
-        changeElParentNode.appendChild(cloneChangeEl);
+        changeElParentNode.appendChild(targetClone);
+        targetElParentNode.appendChild(changeClone);
 
 
 
     }
 
+    function removeSurveyItem(removeHtml){
+
+        Elements.removeInfoList.push(removeHtml);
+        console.log(Elements.removeInfoList);
+
+    }
+
+    function saveSurveyTemplate() {
+        let dataObject = {};
+        let questionGroupObject = {};
+        Elements.surveyGroupSubjectTbl.querySelectorAll("input, select").forEach(function(el){
+            if(el.id) {
+                if(el.id === "use_yn") {
+                    questionGroupObject[el.id] = el.checked ? "Y" : "N";
+                } else {
+                    questionGroupObject[el.id] = el.value;
+                }
+            }
+        });
+
+
+        dataObject.qs_group_info = JSON.stringify(questionGroupObject);
+        dataObject.qs_info = convertResponseData();
+        dataObject.page_type = Elements.pageType.value;
+        commonAjax(BASE_URL + "/info", "PUT", dataObject, true, saveQuestionResult, true);
+    }
+
+
     function setEventListener() {
         Elements.addSurveyBtn.addEventListener("click",createSurveyTemplate);
         document.addEventListener("click",function (e){
             if(e.target.name === "survey_item_up_btn"){
-                let el = e.target.parentNode.parentNode.parentNode.parentNode;
-                let changeEl = el.previousSibling;
-                if("TABLE" === changeEl.tagName ) changeSurveyItemTarget(el, changeEl);
+                let targetEl = e.target.parentNode.parentNode.parentNode.parentNode;
+                let changeEl = targetEl.previousSibling;
+                if("TABLE" === changeEl.tagName ) changeSurveyItemTarget(targetEl.querySelector("tbody"), changeEl.querySelector("tbody"));
             }else if(e.target.name === "survey_item_down_btn"){
-
+                let targetEl = e.target.parentNode.parentNode.parentNode.parentNode;
+                let changeEl = targetEl.nextSibling
+                if("TABLE" === changeEl.tagName ) changeSurveyItemTarget(targetEl.querySelector("tbody"), changeEl.querySelector("tbody"));
             }else if(e.target.name === "survey_item_remove_btn"){
-
+                let removeHtml = e.target.parentNode.parentNode.parentNode.parentNode;
+                //removeSurveyItem(removeHtml);
+                removeHtml.remove();
+            }else if(e.target === Elements.saveBtn) {
+                saveSurveyTemplate();
             }
         })
 

@@ -3,7 +3,7 @@
 
 <div id="main_container">
     <h1 class="main_title">설문설정</h1>
-    <table class="main_tbl">
+    <table class="main_tbl" id="survey_group_subject_tbl">
         <tr>
             <th><label for="survey_group_subject">설문제목</label></th>
             <td><input type="text" class="input99" id="survey_group_subject"/></td>
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <th>사용여부</th>
-            <td><input type="checkbox"/></td>
+            <td><input type="checkbox" id="use_yn"/></td>
         </tr>
     </table>
 
@@ -40,29 +40,33 @@
         </colgroup>
         <tbody>
             <tr>
-                <th rowspan="7">설문항목 - 1</th>
-                <th><label for="sub">질문</label></th>
-                <td><input type="text" class="input99" id="sub"/></td>
+                <th rowspan="8">설문항목</th>
+                <th><label for="qs_subject_1">질문</label></th>
+                <td><input type="text" class="input99" id="qs_subject_1"/></td>
             </tr>
             <tr>
-                <th><label for="ans0">답변1</label></th>
-                <td><input type="text" class="input99" id="ans0"/></td>
+                <th><label for="qs_ans_1_0">답변1</label></th>
+                <td><input type="text" class="input99" id="qs_ans_1_0"/></td>
             </tr>
             <tr>
-                <th><label for="ans1">답변2</label></th>
-                <td><input type="text" class="input99" id="ans1"/></td>
+                <th><label for="qs_ans_1_1">답변2</label></th>
+                <td><input type="text" class="input99" id="qs_ans_1_1"/></td>
             </tr>
             <tr>
-                <th><label for="ans2">답변3</label></th>
-                <td><input type="text" class="input99" id="ans2"/></td>
+                <th><label for="qs_ans_1_2">답변3</label></th>
+                <td><input type="text" class="input99" id="qs_ans_1_2"/></td>
             </tr>
             <tr>
-                <th><label for="ans3">답변4</label></th>
-                <td><input type="text" class="input99" id="ans3"/></td>
+                <th><label for="qs_ans_1_3">답변4</label></th>
+                <td><input type="text" class="input99" id="qs_ans_1_3"/></td>
             </tr>
             <tr>
-                <th><label for="ans4">답변5</label></th>
-                <td><input type="text" class="input99" id="ans4"/></td>
+                <th><label for="qs_ans_1_4">답변5</label></th>
+                <td><input type="text" class="input99" id="qs_ans_1_4"/></td>
+            </tr>
+            <tr>
+                <th><label for="qs_ans_1_5">답변6</label></th>
+                <td><input type="text" class="input99" id="qs_ans_1_5"/></td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: right;">
@@ -74,6 +78,11 @@
         </tbody>
     </table>
 
+
+    <div class="btn_area_center">
+        <input type="button" name="save_btn" id="save_btn" class="btn" value="저장"/>
+        <input type="button" name="move_back_btn" id="move_back_btn" class="btn" value="목록"/>
+    </div>
 
 </div>
 
