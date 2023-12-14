@@ -6,8 +6,10 @@ const SurveyDetailController = (function () {
     const Elements = (function () {
         const lastHtml = ""
         const addSurveyBtn = document.getElementById("add_survey_btn");
-        const surveyInfoTbl = document.getElementById("survey_info_tbl")
+        const surveyInfoTbl = document.getElementsByName("survey_info_tbl")
         const removeInfoList = [];
+        const pageType = document.getElementById("page_type");
+        const removeBtn = document.getElementById("remove_btn");
         const saveBtn = document.getElementById("save_btn");
         const moveBackBtn = document.getElementById("move_back_btn");
         const surveyGroupSubjectTbl = document.getElementById("survey_group_subject_tbl");
@@ -17,6 +19,8 @@ const SurveyDetailController = (function () {
             addSurveyBtn,
             surveyInfoTbl,
             removeInfoList,
+            pageType,
+            removeBtn,
             saveBtn,
             moveBackBtn,
             surveyGroupSubjectTbl
@@ -102,6 +106,7 @@ const SurveyDetailController = (function () {
     function saveSurveyTemplate() {
         let dataObject = {};
         let questionGroupObject = {};
+
         Elements.surveyGroupSubjectTbl.querySelectorAll("input, select").forEach(function(el){
             if(el.id) {
                 if(el.id === "use_yn") {
@@ -115,10 +120,54 @@ const SurveyDetailController = (function () {
 
         dataObject.qs_group_info = JSON.stringify(questionGroupObject);
         dataObject.qs_info = convertResponseData();
-        dataObject.page_type = Elements.pageType.value;
-        commonAjax(BASE_URL + "/info", "PUT", dataObject, true, saveQuestionResult, true);
+        //dataObject.page_type = Elements.pageType.value;
+        commonAjax(BASE_URL + "/info", "PUT", dataObject, true, saveSurveyResult, true);
     }
 
+    function convertResponseData(){
+        let resBodyObject = Elements.surveyInfoTbl;
+        let resultList = [];
+
+        Array.from(resBodyObject).sort();
+
+        resBodyObject.forEach(function(el, index) {
+            let questionObject = {};
+            questionObject.qs_order = index;
+            el.querySelectorAll("input[type='text']").forEach(function(e){
+
+                if(e.id){
+                    if(e.id.indexOf("qs_subject") > -1) {
+                        questionObject["qs_subject"] = e.value;
+                    } else if(e.id.indexOf("qs_ans") > -1){
+                        questionObject[e.id] = e.value;
+                    }
+                }
+
+            });
+
+            resultList.push(questionObject);
+        });
+        /* item check */
+        if (resultList.length < 1) return '';
+
+        return JSON.stringify(resultList);
+    }
+
+
+    function saveSurveyResult(response) {
+        if(response.result === "error") {
+            alert(response.msg);
+            return false;
+        } else {
+            if(Elements.pageType.value === "INSERT") {
+                alert("설문 내용 생성이 되었습니다.");
+            } else {
+                alert("설문 내용 수정이 되었습니다.");
+            }
+
+            window.location.href = BASE_URL + "/main";
+        }
+    }
 
     function setEventListener() {
         Elements.addSurveyBtn.addEventListener("click",createSurveyTemplate);

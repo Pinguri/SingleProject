@@ -81,7 +81,13 @@
 
     <div class="btn_area_center">
         <input type="button" name="save_btn" id="save_btn" class="btn" value="저장"/>
+        <c:if test="${PAGE_TYPE eq 'UPDATE'}">
+            <input type="button" name="remove_btn" id="remove_btn" class="btn bg_deep_line" value="삭제"/>
+        </c:if>
         <input type="button" name="move_back_btn" id="move_back_btn" class="btn" value="목록"/>
+        <input type="hidden" name="page_type" id="page_type" value="${PAGE_TYPE}"/>
+        <input type="hidden" name="qs_group_key" id="qs_group_key" value="${QS_GROUP_KEY}"/>
+        <input type="hidden" name="remove_info_list" id="remove_info_list" value=""/>
     </div>
 
 </div>
