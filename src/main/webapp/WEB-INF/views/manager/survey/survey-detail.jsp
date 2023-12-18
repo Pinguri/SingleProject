@@ -12,10 +12,14 @@
             <th><label>설문기간</label></th>
             <td>
                 <div class="datepicker_area">
-                    <label class="hidden" for="survey_start_date">시작일</label>
                     <input type="text" name="survey_start_date" id="survey_start_date" class="datepicker0" value="" placeholder="달력에서 날짜 선택" required disabled/>
+                    <select name="survey_start_time" id="survey_start_time"></select>
+                    <label class="hidden" for="survey_start_date">시작일</label>
+                    <label for="survey_start_time">시 부터</label>
                     <label class="hidden" for="survey_end_date">마감일</label>
                     <input type="text" name="survey_end_date" id="survey_end_date" class="datepicker0" value="" placeholder="달력에서 날짜 선택" required disabled/>
+                    <select name="survey_end_time" id="survey_end_time"></select>
+                    <label for="survey_end_time">시 까지</label>
                 </div>
             </td>
         </tr>
@@ -41,32 +45,32 @@
         <tbody>
             <tr>
                 <th rowspan="8">설문항목</th>
-                <th><label for="qs_subject_1">질문</label></th>
-                <td><input type="text" class="input99" id="qs_subject_1"/></td>
+                <th><label for="survey_subject_1">질문</label></th>
+                <td><input type="text" class="input99" id="survey_subject_1"/></td>
             </tr>
             <tr>
-                <th><label for="qs_ans_1_0">답변1</label></th>
-                <td><input type="text" class="input99" id="qs_ans_1_0"/></td>
+                <th><label for="survey_ans_1_0">답변1</label></th>
+                <td><input type="text" class="input99" id="survey_ans_1_0"/></td>
             </tr>
             <tr>
-                <th><label for="qs_ans_1_1">답변2</label></th>
-                <td><input type="text" class="input99" id="qs_ans_1_1"/></td>
+                <th><label for="survey_ans_1_1">답변2</label></th>
+                <td><input type="text" class="input99" id="survey_ans_1_1"/></td>
             </tr>
             <tr>
-                <th><label for="qs_ans_1_2">답변3</label></th>
-                <td><input type="text" class="input99" id="qs_ans_1_2"/></td>
+                <th><label for="survey_ans_1_2">답변3</label></th>
+                <td><input type="text" class="input99" id="survey_ans_1_2"/></td>
             </tr>
             <tr>
-                <th><label for="qs_ans_1_3">답변4</label></th>
-                <td><input type="text" class="input99" id="qs_ans_1_3"/></td>
+                <th><label for="survey_ans_1_3">답변4</label></th>
+                <td><input type="text" class="input99" id="survey_ans_1_3"/></td>
             </tr>
             <tr>
-                <th><label for="qs_ans_1_4">답변5</label></th>
-                <td><input type="text" class="input99" id="qs_ans_1_4"/></td>
+                <th><label for="survey_ans_1_4">답변5</label></th>
+                <td><input type="text" class="input99" id="survey_ans_1_4"/></td>
             </tr>
             <tr>
-                <th><label for="qs_ans_1_5">답변6</label></th>
-                <td><input type="text" class="input99" id="qs_ans_1_5"/></td>
+                <th><label for="survey_ans_1_5">답변6</label></th>
+                <td><input type="text" class="input99" id="survey_ans_1_5"/></td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: right;">
@@ -86,7 +90,7 @@
         </c:if>
         <input type="button" name="move_back_btn" id="move_back_btn" class="btn" value="목록"/>
         <input type="hidden" name="page_type" id="page_type" value="${PAGE_TYPE}"/>
-        <input type="hidden" name="qs_group_key" id="qs_group_key" value="${QS_GROUP_KEY}"/>
+        <input type="hidden" name="survey_group_key" id="survey_group_key" value="${SURVEY_GROUP_KEY}"/>
         <input type="hidden" name="remove_info_list" id="remove_info_list" value=""/>
     </div>
 

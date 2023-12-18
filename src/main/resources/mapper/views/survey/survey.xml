@@ -2,6 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SURVEY">
 
+    <insert id="INSERT_SURVEY_GROUP_INFO" parameterType="map">
+        /* 설문지 설문 정보 입력 */
+        INSERT INTO SURVEY_GROUP_INFO (
+        SURVEY_GROUP_KEY,
+        SURVEY_GROUP_SUBJECT,
+        SURVEY_START_DATE,
+        SURVEY_END_DATE,
+        USE_YN,
+        DEL_YN,
+        CREATE_DATE,
+        WORKER,
+        FIRST_WORK,
+        LAST_WORK,
+        UPDATE_DATE
+        )
+        VALUES (
+        #{survey_group_key},
+        #{survey_group_subject},
+        TO_DATE(REGEXP_REPLACE(#{survey_start_date},'[^0-9]+') || ' ' || REGEXP_REPLACE(#{survey_start_time},'[^0-9]+'), 'yyyyMMdd HH24'),
+        TO_DATE(REGEXP_REPLACE(#{survey_end_date},'[^0-9]+') || ' ' || REGEXP_REPLACE(#{survey_end_time},'[^0-9]+'), 'yyyyMMdd HH24'),
+        #{use_yn},
+        'N',
+        SYSDATE,
+        #{worker, jdbcType=VARCHAR},
+        #{first_work, jdbcType=VARCHAR},
+        #{last_work, jdbcType=VARCHAR},
+        SYSDATE
+        )
+        <selectKey keyProperty="survey_group_key" order="BEFORE" resultType="int">
+            SELECT SURVEY_GROUP_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+    </insert>
 
+    <insert id="INSERT_SURVEY_INFO" parameterType="map">
+        /* 설문지 질문 정보 입력 */
+        INSERT INTO SURVEY_INFO (
+        SURVEY_INFO_KEY,
+        SURVEY_GROUP_KEY,
+        SURVEY_INFO_SUBJECT,
+        SURVEY_INFO_ORDER,
+        DEL_YN,
+        CREATE_DATE,
+        WORKER,
+        FIRST_WORK,
+        LAST_WORK
+        )
+        VALUES (
+        #{survey_info_key},
+        #{survey_group_key},
+        #{survey_info_subject},
+        #{survey_info_order},
+        'N',
+        SYSDATE,
+        #{worker},
+        #{first_work},
+        NULL
+        )
+        <selectKey keyProperty="survey_info_key" order="BEFORE" resultType="int">
+            SELECT RC_SURVEY_INFO_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+    </insert>
 
 </mapper>

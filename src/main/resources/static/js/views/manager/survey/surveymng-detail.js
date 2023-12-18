@@ -13,6 +13,8 @@ const SurveyDetailController = (function () {
         const saveBtn = document.getElementById("save_btn");
         const moveBackBtn = document.getElementById("move_back_btn");
         const surveyGroupSubjectTbl = document.getElementById("survey_group_subject_tbl");
+        const surveyStartTime = document.getElementById("survey_start_time");
+        const surveyEndTime = document.getElementById("survey_end_time")
 
         return {
             lastHtml,
@@ -50,13 +52,13 @@ const SurveyDetailController = (function () {
         appendHtml.push("<tbody>");
         appendHtml.push("<tr>");
         appendHtml.push("<th rowspan='8'>설문항목</th>");
-        appendHtml.push("<th><label for='qs_subject_"+index+"'>질문</label></th>");
-        appendHtml.push("<td><input type='text' class='input99' id='qs_subject_"+index+"'/></td>");
+        appendHtml.push("<th><label for='survey_subject_"+index+"'>질문</label></th>");
+        appendHtml.push("<td><input type='text' class='input99' id='survey_subject_"+index+"'/></td>");
         appendHtml.push("</tr>");
         for(let i =0; i<6; i++){
             appendHtml.push("<tr>");
-            appendHtml.push("<th><label for='qs_ans_"+index+"_"+i+"'>답변"+Number(i+1)+"</label></th>");
-            appendHtml.push("<td><input type='text' class='input99' id='qs_ans_"+index+"_"+i+"'/></td>");
+            appendHtml.push("<th><label for='survey_ans_"+index+"_"+i+"'>답변"+Number(i+1)+"</label></th>");
+            appendHtml.push("<td><input type='text' class='input99' id='survey_ans_"+index+"_"+i+"'/></td>");
             appendHtml.push("</tr>");
         }
         appendHtml.push("<tr>");
@@ -118,9 +120,9 @@ const SurveyDetailController = (function () {
         });
 
 
-        dataObject.qs_group_info = JSON.stringify(questionGroupObject);
-        dataObject.qs_info = convertResponseData();
-        //dataObject.page_type = Elements.pageType.value;
+        dataObject.survey_group_info = JSON.stringify(questionGroupObject);
+        dataObject.survey_info = convertResponseData();
+        dataObject.page_type = Elements.pageType.value;
         commonAjax(BASE_URL + "/info", "PUT", dataObject, true, saveSurveyResult, true);
     }
 
@@ -132,13 +134,13 @@ const SurveyDetailController = (function () {
 
         resBodyObject.forEach(function(el, index) {
             let questionObject = {};
-            questionObject.qs_order = index;
+            questionObject.survey_info_order = index;
             el.querySelectorAll("input[type='text']").forEach(function(e){
 
                 if(e.id){
-                    if(e.id.indexOf("qs_subject") > -1) {
-                        questionObject["qs_subject"] = e.value;
-                    } else if(e.id.indexOf("qs_ans") > -1){
+                    if(e.id.indexOf("survey_subject") > -1) {
+                        questionObject["survey_subject"] = e.value;
+                    } else if(e.id.indexOf("survey_ans") > -1){
                         questionObject[e.id] = e.value;
                     }
                 }
@@ -194,6 +196,8 @@ const SurveyDetailController = (function () {
     function init() {
         setEventListener();
         setDatePicker();
+        createSelectTimeBox("survey_start_time", null);
+        createSelectTimeBox("survey_end_time", null);
     }
 
     return {
