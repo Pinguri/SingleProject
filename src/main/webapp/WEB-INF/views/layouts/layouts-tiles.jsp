@@ -14,7 +14,8 @@
     <link href="<c:url value="/css/datepicker/datepicker.min.css" />" rel="stylesheet" type="text/css" />
     <link href="<c:url value="/images/favicon.ico" />" rel="shortcut icon" />
     <script src="<c:url value="/js/common/common.js" />"></script>
-    <script src="<c:url value="/js/common/commonDatepicker.js" />"></script>
+    <script src="<c:url value="/js/common/common.datepicker.js" />"></script>
+    <script src="<c:url value="/js/common/common.paging.js" />"></script>
     <script src="<c:url value="/js/datepicker/datepicker.min.js" />"></script>
 </head>
 <body>

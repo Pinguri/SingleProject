@@ -2,6 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SURVEY">
 
+
+    <select id="GET_SURVEY_LIST" parameterType="map" resultType="map">
+        /* 설문 정보 조회 */
+        <if test="!currpage.equals('') and currpage != null and !displayno.equals('') and displayno != null">
+            SELECT *
+            FROM (
+        </if>
+        SELECT RN, SURVEY_GROUP_KEY, SURVEY_GROUP_SUBJECT, SURVEY_DATE, WORKER, UPDATE_DATE, USE_YN, ING
+        FROM (
+        SELECT ROWNUM AS RN,
+        SURVEY_GROUP_KEY,
+        SURVEY_GROUP_SUBJECT,
+        TO_CHAR(SURVEY_START_DATE, 'YYYY.MM.DD') || ' ~ ' || TO_CHAR(SURVEY_END_DATE, 'YYYY.MM.DD') AS SURVEY_DATE,
+        WORKER,
+        NVL(TO_CHAR(UPDATE_DATE, 'YYYY.MM.DD'), '-') AS UPDATE_DATE,
+        USE_YN,
+        CASE
+        WHEN SYSDATE BETWEEN SURVEY_START_DATE AND SURVEY_END_DATE THEN '(설문진행중)'
+        ELSE ''
+        END ING
+        FROM SURVEY_GROUP_INFO
+        WHERE DEL_YN = 'N'
+        <if test="!search_txt.equals('') and search_txt != null">
+            AND SURVEY_GROUP_SUBJECT LIKE '%' || #{search_txt} || '%'
+        </if>
+        <if test="ing_yn == 'Y'.toString()">
+            AND SYSDATE BETWEEN SURVEY_START_DATE AND SURVEY_END_DATE
+            AND USE_YN = 'Y'
+        </if>
+        )
+        <if test="!currpage.equals('') and currpage != null and !displayno.equals('') and displayno != null">
+            WHERE ROWNUM <![CDATA[<=]]> #{currpage} * #{displayno}
+            )
+            WHERE RN  <![CDATA[>]]> (#{currpage} - 1 ) * #{displayno}
+        </if>
+        ORDER BY RN DESC
+    </select>
+
+    <select id="GET_SURVEY_CNT" parameterType="map" resultType="int">
+        /* 설문 정보 카운트 */
+        SELECT COUNT(1)
+        FROM SURVEY_GROUP_INFO
+        WHERE DEL_YN = 'N'
+        <if test="!search_txt.equals('') and search_txt != null">
+            AND SURVEY_GROUP_SUBJECT LIKE '%' || #{search_txt} || '%'
+        </if>
+        <if test="ing_yn == 'Y'.toString()">
+            AND SYSDATE BETWEEN SURVEY_START_DATE AND SURVEY_END_DATE
+            AND USE_YN = 'Y'
+        </if>
+    </select>
+
     <insert id="INSERT_SURVEY_GROUP_INFO" parameterType="map">
         /* 설문지 설문 정보 입력 */
         INSERT INTO SURVEY_GROUP_INFO (
@@ -55,13 +107,77 @@
         #{survey_info_order},
         'N',
         SYSDATE,
-        #{worker},
-        #{first_work},
+        #{worker, jdbcType=VARCHAR},
+        #{first_work, jdbcType=VARCHAR},
         NULL
         )
         <selectKey keyProperty="survey_info_key" order="BEFORE" resultType="int">
-            SELECT RC_SURVEY_INFO_SEQ.NEXTVAL FROM DUAL
+            SELECT SURVEY_INFO_SEQ.NEXTVAL FROM DUAL
         </selectKey>
     </insert>
+
+
+    <insert id="INSERT_SURVEY_ITEM_INFO" parameterType="map">
+        /* 설문지 답변 정보 입력 */
+        INSERT INTO SURVEY_ITEM_INFO (
+            SURVEY_ITEM_KEY,
+            SURVEY_INFO_KEY,
+            SURVEY_ITEM_NO,
+            SURVEY_ITEM_COMMENT,
+            SURVEY_ITEM_TYPE,
+            SURVEY_ITEM_REFERENCE,
+            DEL_YN,
+            CREATE_DATE,
+            WORKER,
+            FIRST_WORK,
+            LAST_WORK
+        ) VALUES (
+             SURVEY_ITEM_SEQ.NEXTVAL,
+             #{survey_info_key},
+             #{survey_item_no},
+             #{survey_item_comment, jdbcType=VARCHAR},
+             #{survey_item_type,jdbcType=VARCHAR},
+             #{survey_item_reference, jdbcType=VARCHAR},
+             'N',
+             SYSDATE,
+             #{worker, jdbcType=VARCHAR},
+             #{first_work, jdbcType=VARCHAR},
+             NULL
+        )
+    </insert>
+
+    <select id="GET_SURVEY_GROUP_INFO" parameterType="string" resultType="map">
+        /* 상세 설문 정보 조회 */
+        SELECT SURVEY_GROUP_KEY,
+               SURVEY_GROUP_SUBJECT,
+               TO_CHAR(SURVEY_START_DATE, 'YYYY-MM-DD') AS SURVEY_START_DATE,
+               TO_CHAR(SURVEY_END_DATE, 'YYYY-MM-DD') AS SURVEY_END_DATE,
+               SUBSTR(TO_CHAR(SURVEY_START_DATE, 'YYYY-MM-DD HH24'), 11) AS SURVEY_START_TIME,
+               SUBSTR(TO_CHAR(SURVEY_END_DATE, 'YYYY-MM-DD HH24'), 11) AS SURVEY_END_TIME,
+               USE_YN,
+               TO_CHAR(SYSDATE,'yyyy.MM.dd HH24:MI:SS') AS SEARCH_TIME
+        FROM SURVEY_GROUP_INFO
+        WHERE DEL_YN = 'N'
+          AND SURVEY_GROUP_KEY = #{survey_group_key}
+    </select>
+
+    <select id="GET_SURVEY_INFO" parameterType="string" resultType="map">
+        /* 상세 설문 질문 조회 */
+        SELECT SURVEY_INFO_KEY, SURVEY_INFO_SUBJECT, SURVEY_INFO_ORDER
+        FROM SURVEY_INFO
+        WHERE DEL_YN = 'N'
+          AND SURVEY_GROUP_KEY = #{survey_group_key}
+        ORDER BY SURVEY_INFO_ORDER
+    </select>
+
+    <select id="GET_SURVEY_ITEM_INFO" parameterType="string" resultType="map">
+        /* 상세 설문 답변 조회 */
+        SELECT SURVEY_ITEM_KEY, SURVEY_ITEM_NO, SURVEY_ITEM_COMMENT
+        FROM SURVEY_ITEM_INFO
+        WHERE DEL_YN = 'N'
+          AND SURVEY_INFO_KEY = #{survey_info_key}
+        ORDER BY SURVEY_ITEM_NO
+    </select>
+
 
 </mapper>

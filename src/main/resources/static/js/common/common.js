@@ -127,7 +127,10 @@ function htmlDecode(value) {
     let doc = new DOMParser().parseFromString(value, "text/html");
     return doc.documentElement.textContent;
 }
-
+function isMobileDevice() {
+    let device = "win16|win32|win64|mac|macintel";
+    return navigator.platform && device.indexOf(navigator.platform.toLowerCase()) < 0;
+}
 function createSelectTimeBox(target, selected) {
     const targetHtml = document.querySelector("select[name='"+target+"'");
     const timeArr = ['00', '01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
